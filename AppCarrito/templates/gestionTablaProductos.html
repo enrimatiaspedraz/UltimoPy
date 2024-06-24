@@ -1,0 +1,67 @@
+{% extends "./base.html" %}
+
+{% block body  %}
+
+<div class="container">
+
+    <div class='row'>
+        <div class='col-4'>
+            <h2>Gestor de Pedidos</h2>
+    
+                <div class="card">
+                    <div class="class-body">
+                        <form action="./registrarPedido/" method="POST">{% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" id="txtCodigo" name="txtCodigo" class="form-control" placeholder="código" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="txtProducto" name="txtProducto" class="form-control" placeholder="Nombre del Producto" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="numCantidad" name="numCantidad" class="form-control" placeholder="Cantidad" min="1" required>
+                            </div>
+                            <div class="btn btn-block">
+                                <button type="submit" class="btn btn-success text-white">Guardar</button>
+                            </div>
+    
+                        </form>
+                    </div>
+                </div>
+        </div> 
+    
+        
+        <div class='col-8'>
+            <h1> Listado de Pedidos </h1>
+            <div class="table responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th colspan='2'>opciones</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in productos %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.Código}}</td>
+                            <td>{{i.Producto}}</td>
+                            <td>{{i.Cantidad}}</td>
+                            <td><a href="editarPedido/{{i.Código}}" class="btn btn-info ">Editar</a></td>
+                            <td><a href="eliminarPedido/{{i.Código}}" class="btn btn-danger btnEliminacion">Eliminar</a></td>
+                        {% endfor %}    
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock  %}
